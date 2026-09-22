@@ -8,11 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- Hidden tap zone (kiri atas) -->
+<!-- Hidden tap zone (kiri atas) untuk akses admin -->
 <div class="tapzone" id="tapzone" aria-hidden="true"></div>
 
 <header class="nav">
@@ -33,7 +34,7 @@
 
   <section class="hero">
     <h1>SHARE KODE.<br/>TANPA RIBET.</h1>
-    <p>Tempat nyimpen & share script, scraper, dan tools. Cepat, rapi, dan bisa diakses siapa aja.</p>
+    <p>Tempat nyimpen &amp; share script, scraper, dan tools. Cepat, rapi, dan bisa diakses siapa aja.</p>
     <div class="hero-stats">
       <div class="stat">
         <span class="stat-num" id="statTotal">0</span>
@@ -51,6 +52,12 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" class="input search-input" id="searchInput" placeholder="Cari script, judul, atau bahasa..." />
     </div>
+    <select class="input sort-select" id="sortSelect">
+      <option value="newest">Terbaru</option>
+      <option value="oldest">Terlama</option>
+      <option value="popular">Terpopuler</option>
+      <option value="az">A ke Z</option>
+    </select>
   </div>
 
   <div class="section-head">
@@ -108,6 +115,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span>Download</span>
       </button>
+      <button class="btn btn-purple" id="btnCopyLink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>Link</span>
+      </button>
       <button class="btn btn-yellow" id="btnShare">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
         <span>Share</span>
@@ -138,6 +149,7 @@
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="main.js"></script>
 </body>
-</html>
+                                                                                                                                                                    </html>
