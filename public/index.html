@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GENOS DEV — Share Script & Tools</title>
+<meta name="description" content="Pastebin pribadi untuk share script, scraper, dan tools." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Hidden tap zone (kiri atas) -->
+<div class="tapzone" id="tapzone" aria-hidden="true"></div>
+
+<header class="nav">
+  <a href="/" class="logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    </span>
+    <span class="logo-text">GENOS<span class="accent">DEV</span></span>
+  </a>
+  <div class="nav-actions">
+    <button class="btn btn-icon" id="refreshBtn" title="Refresh" aria-label="Refresh">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>SHARE KODE.<br/>TANPA RIBET.</h1>
+    <p>Tempat nyimpen & share script, scraper, dan tools. Cepat, rapi, dan bisa diakses siapa aja.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num" id="statTotal">0</span>
+        <span class="stat-label">Total Paste</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="statViews">0</span>
+        <span class="stat-label">Total Views</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="input search-input" id="searchInput" placeholder="Cari script, judul, atau bahasa..." />
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>DAFTAR SCRIPT</h2>
+    <span class="count-badge" id="countBadge">0</span>
+  </div>
+
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Memuat data...</p>
+  </div>
+
+  <div id="list" class="grid"></div>
+
+  <div id="empty" class="empty hidden">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    <h3>Belum ada script</h3>
+    <p>Script yang dibagikan akan muncul di sini.</p>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> GENOS DEV — Built with Neobrutalism</p>
+</footer>
+
+<!-- MODAL: VIEW PASTE -->
+<div class="modal" id="viewModal" aria-hidden="true">
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <span class="lang-badge" id="viewLang">JS</span>
+        <h2 id="viewTitle">Title</h2>
+      </div>
+      <button class="btn-icon" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="modal-desc" id="viewDesc"></p>
+    <div class="modal-meta" id="viewMeta"></div>
+    <div class="code-wrap">
+      <div class="code-toolbar">
+        <span class="code-filename" id="viewFilename">script.js</span>
+        <span class="code-size" id="viewSize">0 B</span>
+      </div>
+      <pre><code id="viewCode"></code></pre>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-blue" id="btnCopy">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span>Copy</span>
+      </button>
+      <button class="btn btn-green" id="btnDownload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Download</span>
+      </button>
+      <button class="btn btn-yellow" id="btnShare">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        <span>Share</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PASSWORD -->
+<div class="modal" id="pwModal" aria-hidden="true">
+  <div class="modal-overlay" data-close-pw></div>
+  <div class="modal-box modal-sm">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <span class="lang-badge red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <h2>Admin Access</h2>
+      </div>
+      <button class="btn-icon" data-close-pw aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="modal-desc">Masukkan password untuk mengakses panel admin.</p>
+    <input type="password" class="input" id="pwInput" placeholder="Password..." autocomplete="off" />
+    <div class="alert error hidden" id="pwAlert">Password salah.</div>
+    <button class="btn btn-dark btn-full" id="pwSubmit">Masuk</button>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
