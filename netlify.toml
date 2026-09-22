@@ -1,0 +1,15 @@
+[build]
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/pastes"
+  to = "/.netlify/functions/api"
+  status = 200
+
+[[redirects]]
+  from = "/api/pastes/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
